@@ -9,6 +9,7 @@
 #define DHTTYPE DHT11
 #define DHTPIN 2 // PD4 (number 4)
 #define MEASUREMENT_INTERVAL_MS 5000
+#define WEATHER_STATION_ID 155
 
 DHT dht(DHTPIN, DHTTYPE);
 uint8_t measurementId = 0; // incremental
@@ -32,7 +33,7 @@ void loop() {
   } 
   else {
     failureWait = 1;
-    uint8_t values[] = {measurementId, (uint8_t)temperature, (uint8_t)humidity};
+    uint8_t values[] = {WEATHER_STATION_ID, measurementId, (uint8_t)temperature, (uint8_t)humidity};
     vw_send(values, sizeof(values));
     measurementId++;
     vw_wait_tx(); // Wait until the whole message is gone
